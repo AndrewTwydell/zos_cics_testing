@@ -1,0 +1,31 @@
+---
+- name: Test CICS Collection
+  collections:
+    - ibm.ibm_zos_cics
+  hosts: "localhost"
+
+  module_defaults:
+    ibm.ibm_zos_cics.cmci_get:
+      cmci_host:
+      cmci_port:
+      cmci_user:
+      cmci_password:
+      context:
+      scope:
+      scheme: http
+
+  tasks:
+    - name: Get program definitions
+      ibm.ibm_zos_cics.cmci_get:
+        type: CICSDefinitionProgram
+        resources:
+          filter:
+            name: TWYD*
+          get_parameters:
+            - name: csdgroup
+              value: TWYDCSD1
+        fail_on_nodata: false
+      register: result
+
+    - debug:
+        msg: "{{ result }}"
