@@ -1,0 +1,17 @@
+ARG PYTHON_VERSION
+
+FROM python:${PYTHON_VERSION}
+
+WORKDIR /app
+
+RUN apt update && apt upgrade -y
+
+RUN pip install requests xmltodict
+
+ARG ANSIBLE_VERSION
+
+RUN pip install ansible-core==${ANSIBLE_VERSION}
+
+ENV PATH="${PATH}:/root/.local/bin"
+
+COPY ./ ./

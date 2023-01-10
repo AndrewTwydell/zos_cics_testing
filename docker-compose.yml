@@ -31,3 +31,11 @@ services:
       context: .
       args:
         PYTHON_VERSION: "3.11"
+
+  38python211:
+    build:
+      context: .
+      dockerfile: Dockerfile.with-ansible-version
+      args:
+        PYTHON_VERSION: "3.8"
+        ANSIBLE_VERSION: "2.11.12"
